@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
   extracted from logo.webp). Rings reveal one after another, outer to inner.
   `showNext` sets a big red "NEXT" into the open gap on the left of the 3, like the logo lockup.
 */
-const BASE = import.meta.env.BASE_URL;
+const BASE = './'; // relative: works on github.io/next3media/ and in the prerendered HTML
 const rings = ['ring5', 'ring4', 'ring3', 'ring2', 'ring1']; // outer -> inner
 
 const ringVariants = {

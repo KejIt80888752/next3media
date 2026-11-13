@@ -11,7 +11,7 @@ import {
   contact, nav, pillars, services, process, work, cities, faqs,
 } from './data.js';
 
-const LOGO = `${import.meta.env.BASE_URL}logo.webp`;
+const LOGO = './logo.webp';
 const ease = [0.22, 1, 0.36, 1];
 
 const fadeUp = {
