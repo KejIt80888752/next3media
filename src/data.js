@@ -6,14 +6,12 @@ import {
 export const contact = {
   email: 'info@next3media.com',
   locations: ['Bengaluru', 'Hyderabad'],
-  instagram: 'https://instagram.com/',
-  facebook: 'https://facebook.com/',
-  linkedin: 'https://linkedin.com/',
-  youtube: 'https://youtube.com/',
+  // Social profiles — leave '' until the account exists; icons appear automatically once filled.
+  instagram: '',
+  facebook: '',
+  linkedin: '',
+  youtube: '',
 };
-
-// Google Analytics 4 — paste your Measurement ID (looks like 'G-XXXXXXXXXX') to turn tracking on.
-export const analytics = { gaId: '' };
 
 export const nav = [
   { id: 'about', label: 'About' },

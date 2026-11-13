@@ -350,7 +350,8 @@ function About() {
         <div>
           <Heading kicker="Who We Are" title={<>One agency.<br />Three pillars.<br /><span className="red">Endless impact.</span></>} />
           <motion.p className="lead" variants={fadeUp} custom={2} initial="hidden" whileInView="show" viewport={{ once: true }}>
-            NEXT3 Media is a modern, technology-driven media and communications company. From the
+            NEXT3 Media is a modern, technology-driven media and communications agency based in
+            Bengaluru and Hyderabad, India. From the
             boardroom to the wedding mandapam, from the press release to the viral reel — we plan,
             produce and promote stories that move people.
           </motion.p>
@@ -687,19 +688,16 @@ function FAQ() {
                   <span>{f.q}</span>
                   <motion.i animate={{ rotate: isOpen ? 45 : 0 }} transition={{ duration: 0.3 }}><Plus size={20} /></motion.i>
                 </button>
-                <AnimatePresence initial={false}>
-                  {isOpen && (
-                    <motion.div
-                      className="faq-a"
-                      initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: 'auto', opacity: 1 }}
-                      exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.4, ease }}
-                    >
-                      <p>{f.a}</p>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
+                {/* answers stay in the HTML (collapsed, not removed) so search & answer engines can read them */}
+                <motion.div
+                  className="faq-a"
+                  initial={false}
+                  animate={isOpen ? { height: 'auto', opacity: 1 } : { height: 0, opacity: 0 }}
+                  transition={{ duration: 0.4, ease }}
+                  aria-hidden={!isOpen}
+                >
+                  <p>{f.a}</p>
+                </motion.div>
               </motion.div>
             );
           })}
@@ -716,7 +714,7 @@ function Footer() {
     { icon: Facebook, href: contact.facebook, label: 'Facebook' },
     { icon: Linkedin, href: contact.linkedin, label: 'LinkedIn' },
     { icon: Youtube, href: contact.youtube, label: 'YouTube' },
-  ];
+  ].filter((s) => s.href); // only show accounts that exist
   return (
     <footer className="footer">
       <div className="footer-big" aria-hidden="true">NEXT<span>3</span></div>
@@ -724,13 +722,13 @@ function Footer() {
         <div className="footer-brand">
           <div className="footer-logo"><img src={LOGO} alt="NEXT3 Media" /></div>
           <p>Innovate. Automate. Elevate.<br />Your partner for PR, events, media and marketing.</p>
-          <div className="socials">
+          {socials.length > 0 && <div className="socials">
             {socials.map(({ icon: Icon, href, label }) => (
               <motion.a key={label} href={href} target="_blank" rel="noreferrer" aria-label={label} whileHover={{ y: -4, rotate: -6 }}>
                 <Icon size={18} />
               </motion.a>
             ))}
-          </div>
+          </div>}
         </div>
         <div>
           <h5>Quick Links</h5>
@@ -747,7 +745,7 @@ function Footer() {
         </div>
       </div>
       <div className="container footer-bottom">
-        <span>© {new Date().getFullYear()} NEXT3 Media. All rights reserved.</span>
+        <span suppressHydrationWarning>© {new Date().getFullYear()} NEXT3 Media. All rights reserved.</span>
         <span>Crafted with <b className="red">♥</b> in India</span>
       </div>
     </footer>
