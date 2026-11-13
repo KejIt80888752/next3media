@@ -4,11 +4,11 @@ import {
 } from 'framer-motion';
 import {
   ArrowRight, ArrowUpRight, Menu, X, Mail, MapPin, Instagram, Facebook, Linkedin, Youtube,
-  Play, ChevronUp,
+  Play, ChevronUp, Plus,
 } from 'lucide-react';
 import Arcs from './components/Arcs.jsx';
 import {
-  contact, nav, pillars, services, process, work,
+  contact, nav, pillars, services, process, work, cities, faqs,
 } from './data.js';
 
 const LOGO = `${import.meta.env.BASE_URL}logo.webp`;
@@ -216,7 +216,7 @@ function Hero() {
       </div>
       <div className="hero-glow" />
       <motion.div className="hero-arcs" style={{ y: yArcs, rotate: rot }}>
-        <Arcs delay={2.2} />
+        <Arcs delay={2.2} showNext />
       </motion.div>
 
       <motion.div className="hero-content container" style={{ y: yText, opacity }}>
@@ -606,6 +606,109 @@ function Contact() {
   );
 }
 
+/* ---------- Locations ---------- */
+function Locations() {
+  return (
+    <section id="locations" className="section locations">
+      <div className="container">
+        <div className="services-head">
+          <Heading kicker="Where We Are" title={<>Two cities. <span className="red">One team.</span></>} />
+          <motion.p className="services-intro dark" variants={fadeUp} custom={2} initial="hidden" whileInView="show" viewport={{ once: true }}>
+            Rooted in South India's two biggest business hubs — and ready to travel wherever your story takes us.
+          </motion.p>
+        </div>
+        <div className="cities-grid">
+          {cities.map((c, i) => (
+            <motion.article
+              key={c.name}
+              className="city-card hoverable"
+              variants={fadeUp}
+              custom={i}
+              initial="hidden"
+              whileInView="show"
+              viewport={{ once: true, margin: '-60px' }}
+            >
+              <div className="city-map">
+                <iframe
+                  title={`Map of ${c.name}`}
+                  src={`https://maps.google.com/maps?q=${encodeURIComponent(c.mapQuery)}&z=11&output=embed`}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                />
+                <span className="city-pin"><MapPin size={18} /></span>
+              </div>
+              <div className="city-body">
+                <span className="city-no">0{i + 1}</span>
+                <h3>{c.name}<span className="red">.</span></h3>
+                <p className="city-state">{c.state}, India</p>
+                <p>{c.text}</p>
+                <div className="city-tags">
+                  {c.focus.map((f) => <span key={f}>{f}</span>)}
+                </div>
+                <a className="city-link" href={`mailto:${contact.email}?subject=${encodeURIComponent(`Enquiry — ${c.name}`)}`}>
+                  Plan something in {c.name} <ArrowUpRight size={16} />
+                </a>
+              </div>
+            </motion.article>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ---------- FAQ ---------- */
+function FAQ() {
+  const [open, setOpen] = useState(0);
+  return (
+    <section id="faq" className="section faq">
+      <div className="container faq-grid">
+        <div className="faq-side">
+          <Heading kicker="FAQ" light title={<>Questions? <span className="red">Answered.</span></>} />
+          <motion.p className="services-intro" variants={fadeUp} custom={2} initial="hidden" whileInView="show" viewport={{ once: true }}>
+            Can't find what you're looking for? Write to us at{' '}
+            <a className="red" href={`mailto:${contact.email}`}>{contact.email}</a>
+          </motion.p>
+        </div>
+        <div className="faq-list">
+          {faqs.map((f, i) => {
+            const isOpen = open === i;
+            return (
+              <motion.div
+                key={f.q}
+                className={`faq-item ${isOpen ? 'open' : ''}`}
+                variants={fadeUp}
+                custom={i}
+                initial="hidden"
+                whileInView="show"
+                viewport={{ once: true }}
+              >
+                <button className="faq-q" onClick={() => setOpen(isOpen ? -1 : i)} aria-expanded={isOpen}>
+                  <span>{f.q}</span>
+                  <motion.i animate={{ rotate: isOpen ? 45 : 0 }} transition={{ duration: 0.3 }}><Plus size={20} /></motion.i>
+                </button>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      className="faq-a"
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.4, ease }}
+                    >
+                      <p>{f.a}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
 /* ---------- Footer ---------- */
 function Footer() {
   const socials = [
@@ -718,6 +821,8 @@ export default function App() {
         <Process />
         <Marquee items={['Innovate', 'Automate', 'Elevate', 'NEXT3 Media']} reverse variant="dark" />
         <Work />
+        <Locations />
+        <FAQ />
         <CTA />
         <Contact />
       </main>
