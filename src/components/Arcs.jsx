@@ -24,6 +24,14 @@ const nextVariants = {
   }),
 };
 
+const mediaVariants = {
+  hidden: { opacity: 0, y: 12 },
+  show: (d) => ({
+    opacity: 1, y: 0,
+    transition: { duration: 0.8, delay: d, ease: [0.22, 1, 0.36, 1] },
+  }),
+};
+
 export default function Arcs({ className = '', delay = 0, dark = false, animateOnView = false, showNext = false }) {
   // the wrapper (never clipped) drives the trigger; children inherit the variant
   const trigger = animateOnView
@@ -45,6 +53,14 @@ export default function Arcs({ className = '', delay = 0, dark = false, animateO
         <motion.span className="mark3-next" variants={nextVariants} custom={delay + 0.7}>
           NEXT
         </motion.span>
+      )}
+      {showNext && (
+        // "— MEDIA —" row under NEXT, placed like the logo
+        <motion.div className="mark3-media" variants={mediaVariants} custom={delay + 1.1}>
+          <span className="m3-line" />
+          <span className="m3-word">MEDIA</span>
+          <span className="m3-line" />
+        </motion.div>
       )}
     </motion.div>
   );
