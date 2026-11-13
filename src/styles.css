@@ -84,7 +84,7 @@ a { color: inherit; text-decoration: none; }
 .nav-inner {
   width: min(1280px, 100% - 32px); margin-inline: auto;
   display: flex; align-items: center; gap: 24px; padding: 8px 10px 8px 20px;
-  background: rgba(255,255,255,.96); border-radius: 999px; color: var(--black);
+  background: #fff; border-radius: 999px; color: var(--black);
   box-shadow: 0 10px 40px -10px rgba(0,0,0,.4);
   backdrop-filter: blur(14px);
   transition: box-shadow .4s;
@@ -121,13 +121,40 @@ a { color: inherit; text-decoration: none; }
   min-height: 100vh; min-height: 100svh; position: relative; overflow: hidden;
   display: flex; align-items: center; padding: 140px 0 100px;
 }
-.hero-grid-bg {
-  position: absolute; inset: 0;
-  background-image: linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: radial-gradient(ellipse at 70% 40%, #000 20%, transparent 70%);
-  opacity: .5;
+.hero-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.hero-ripples { position: absolute; right: 18%; top: 50%; width: 0; height: 0; }
+.hero-ripples span {
+  position: absolute; left: 50%; top: 50%; width: 220px; height: 220px; border-radius: 50%;
+  border: 1.5px solid rgba(229,9,20,.55); translate: -50% -50%;
+  animation: ripple 8s cubic-bezier(.2,.6,.3,1) infinite; opacity: 0;
 }
+@keyframes ripple {
+  0% { transform: scale(.4); opacity: 0; }
+  15% { opacity: .8; }
+  100% { transform: scale(6); opacity: 0; }
+}
+.hero-beam {
+  position: absolute; width: 140%; height: 2px; left: -20%;
+  background: linear-gradient(90deg, transparent, rgba(229,9,20,.0) 30%, rgba(229,9,20,.9) 50%, rgba(229,9,20,0) 70%, transparent);
+  filter: blur(.5px); opacity: .6;
+}
+.hero-beam.b1 { top: 28%; rotate: -12deg; animation: beam 7s ease-in-out infinite; }
+.hero-beam.b2 { top: 72%; rotate: -12deg; animation: beam 9s ease-in-out infinite reverse; }
+@keyframes beam { 0% { transform: translateX(-40%); } 100% { transform: translateX(40%); } }
+.hero-particles i {
+  position: absolute; bottom: -10px; border-radius: 50%; background: var(--red);
+  box-shadow: 0 0 8px rgba(229,9,20,.9); opacity: 0;
+  animation-name: rise; animation-timing-function: linear; animation-iteration-count: infinite;
+}
+.hero-particles i:nth-child(3n) { background: #fff; box-shadow: 0 0 6px rgba(255,255,255,.7); }
+@keyframes rise {
+  0% { transform: translateY(0); opacity: 0; }
+  10% { opacity: .9; }
+  90% { opacity: .6; }
+  100% { transform: translateY(-110vh); opacity: 0; }
+}
+.hero-vignette { position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(10,10,10,.85), transparent 60%); }
+@media (max-width: 760px) { .hero-ripples { right: 0; top: 40%; } }
 .hero-glow {
   position: absolute; width: 900px; height: 900px; right: -250px; top: -150px; border-radius: 50%;
   background: radial-gradient(circle, rgba(229,9,20,.35), transparent 65%);
@@ -410,13 +437,14 @@ a.ci:hover { border-color: var(--red); transform: translateX(6px); }
 .fab-wa, .fab-top {
   position: fixed; right: 22px; z-index: 90; border-radius: 50%; display: grid; place-items: center;
 }
-.fab-wa { bottom: 22px; width: 58px; height: 58px; background: #25d366; color: var(--white); box-shadow: 0 10px 30px -6px rgba(37,211,102,.6); }
+.fab-wa { bottom: 22px; width: 58px; height: 58px; background: var(--red); color: var(--white); box-shadow: 0 10px 30px -6px rgba(229,9,20,.6); }
 .fab-wa::after {
-  content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid #25d366;
+  content: ''; position: absolute; inset: 0; border-radius: 50%; border: 2px solid var(--red);
   animation: ring 2s ease-out infinite;
 }
 @keyframes ring { to { transform: scale(1.6); opacity: 0; } }
-.fab-top { bottom: 92px; width: 46px; height: 46px; background: var(--red); color: var(--white); }
+.fab-top { bottom: 92px; right: 28px; width: 46px; height: 46px; background: var(--white); color: var(--black); }
+.form-note a { color: var(--red); }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1080px) {

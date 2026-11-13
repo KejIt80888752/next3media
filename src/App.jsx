@@ -3,8 +3,8 @@ import {
   motion, AnimatePresence, useScroll, useSpring, useTransform, useInView, useMotionValue, animate,
 } from 'framer-motion';
 import {
-  ArrowRight, ArrowUpRight, Menu, X, Phone, Mail, MapPin, Instagram, Facebook, Linkedin, Youtube,
-  Quote, Play, MessageCircle, ChevronUp,
+  ArrowRight, ArrowUpRight, Menu, X, Mail, MapPin, Instagram, Facebook, Linkedin, Youtube,
+  Quote, Play, ChevronUp,
 } from 'lucide-react';
 import Arcs from './components/Arcs.jsx';
 import {
@@ -192,7 +192,28 @@ function Hero() {
 
   return (
     <section id="home" className="hero" ref={ref}>
-      <div className="hero-grid-bg" />
+      <div className="hero-bg" aria-hidden="true">
+        <div className="hero-ripples">
+          {[0, 1, 2, 3, 4].map((k) => <span key={k} style={{ animationDelay: `${k * 1.6}s` }} />)}
+        </div>
+        <div className="hero-beam b1" />
+        <div className="hero-beam b2" />
+        <div className="hero-particles">
+          {Array.from({ length: 28 }).map((_, k) => (
+            <i
+              key={k}
+              style={{
+                left: `${(k * 37) % 100}%`,
+                animationDelay: `${(k * 0.7) % 9}s`,
+                animationDuration: `${9 + (k % 5) * 2}s`,
+                width: `${2 + (k % 3)}px`,
+                height: `${2 + (k % 3)}px`,
+              }}
+            />
+          ))}
+        </div>
+        <div className="hero-vignette" />
+      </div>
       <div className="hero-glow" />
       <motion.div className="hero-arcs" style={{ y: yArcs, rotate: rot }}>
         <Arcs delay={2.2} stroke={22} />
@@ -590,14 +611,14 @@ function Contact() {
   const update = (k) => (e) => setForm({ ...form, [k]: e.target.value });
   const submit = (e) => {
     e.preventDefault();
-    const text = `Hi NEXT3 Media!\n\nName: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\nService: ${form.service}\n\n${form.message}`;
-    window.open(`https://wa.me/${contact.whatsapp}?text=${encodeURIComponent(text)}`, '_blank');
+    const body = `Name: ${form.name}\nPhone: ${form.phone}\nEmail: ${form.email}\nService: ${form.service}\n\n${form.message}`;
+    const subject = `Enquiry: ${form.service} — ${form.name}`;
+    window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
     setSent(true);
   };
   const info = [
-    { icon: Phone, label: 'Call Us', value: contact.phone, href: `tel:${contact.phone.replace(/\s/g, '')}` },
     { icon: Mail, label: 'Email Us', value: contact.email, href: `mailto:${contact.email}` },
-    { icon: MapPin, label: 'Visit Us', value: contact.address },
+    ...contact.locations.map((city) => ({ icon: MapPin, label: 'Office', value: `${city}, India` })),
   ];
   return (
     <section id="contact" className="section contact">
@@ -605,7 +626,7 @@ function Contact() {
         <div>
           <Heading kicker="Get In Touch" title={<>Let's create something <span className="red">remarkable</span></>} />
           <motion.p className="lead" variants={fadeUp} custom={2} initial="hidden" whileInView="show" viewport={{ once: true }}>
-            Tell us about your event, brand or campaign. We'll get back within 24 hours.
+            Tell us about your event, brand or campaign. Based in Bengaluru &amp; Hyderabad — we'll get back within 24 hours.
           </motion.p>
           <div className="contact-info">
             {info.map((c, i) => {
@@ -635,9 +656,9 @@ function Contact() {
         >
           <div className="row">
             <label><span>Your Name</span><input required value={form.name} onChange={update('name')} placeholder="John Doe" /></label>
-            <label><span>Phone</span><input required value={form.phone} onChange={update('phone')} placeholder="+91" /></label>
+            <label><span>Phone (optional)</span><input value={form.phone} onChange={update('phone')} placeholder="Your number" /></label>
           </div>
-          <label><span>Email</span><input type="email" value={form.email} onChange={update('email')} placeholder="you@company.com" /></label>
+          <label><span>Email</span><input required type="email" value={form.email} onChange={update('email')} placeholder="you@company.com" /></label>
           <label>
             <span>Service Needed</span>
             <select required value={form.service} onChange={update('service')}>
@@ -647,9 +668,9 @@ function Contact() {
           </label>
           <label><span>Message</span><textarea rows={4} value={form.message} onChange={update('message')} placeholder="Tell us about your project..." /></label>
           <button type="submit" className="btn btn-red btn-lg btn-block">
-            {sent ? 'Opening WhatsApp…' : <>Send Enquiry <ArrowRight size={18} /></>}
+            {sent ? 'Opening your email app…' : <>Send Enquiry <ArrowRight size={18} /></>}
           </button>
-          <small className="form-note">Your enquiry opens in WhatsApp so we can reply instantly.</small>
+          <small className="form-note">Or write to us directly at <a href={`mailto:${contact.email}`}>{contact.email}</a></small>
         </motion.form>
       </div>
     </section>
@@ -689,9 +710,8 @@ function Footer() {
         </div>
         <div>
           <h5>Contact</h5>
-          <a href={`tel:${contact.phone.replace(/\s/g, '')}`}>{contact.phone}</a>
           <a href={`mailto:${contact.email}`}>{contact.email}</a>
-          <span>{contact.address}</span>
+          {contact.locations.map((city) => <span key={city}>{city}, India</span>)}
         </div>
       </div>
       <div className="container footer-bottom">
@@ -714,16 +734,14 @@ function Floating() {
     <>
       <motion.a
         className="fab-wa"
-        href={`https://wa.me/${contact.whatsapp}`}
-        target="_blank"
-        rel="noreferrer"
-        aria-label="WhatsApp"
+        href={`mailto:${contact.email}`}
+        aria-label="Email us"
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
         transition={{ delay: 3.6, type: 'spring' }}
         whileHover={{ scale: 1.1 }}
       >
-        <MessageCircle size={26} />
+        <Mail size={24} />
       </motion.a>
       <AnimatePresence>
         {show && (

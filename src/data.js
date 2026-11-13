@@ -4,10 +4,8 @@ import {
 } from 'lucide-react';
 
 export const contact = {
-  phone: '+91 98765 43210',        // TODO: replace with real number
-  whatsapp: '919876543210',        // TODO: number with country code, no +
-  email: 'hello@next3media.com',   // TODO: replace with real email
-  address: 'Chennai, Tamil Nadu, India', // TODO: replace with real address
+  email: 'info@next3media.com',
+  locations: ['Bengaluru', 'Hyderabad'],
   instagram: 'https://instagram.com/',
   facebook: 'https://facebook.com/',
   linkedin: 'https://linkedin.com/',
@@ -67,6 +65,6 @@ export const work = [
 
 export const testimonials = [
   { quote: 'NEXT3 Media handled our product launch end-to-end — PR, event and social. Flawless execution and outstanding media coverage.', name: 'Corporate Client', role: 'Marketing Head' },
-  { quote: 'Our wedding looked like a film. The team was calm, creative and on top of every detail. Highly recommended!', name: 'Wedding Client', role: 'Chennai' },
+  { quote: 'Our wedding looked like a film. The team was calm, creative and on top of every detail. Highly recommended!', name: 'Wedding Client', role: 'Hyderabad' },
   { quote: 'Their influencer campaign doubled our reach in a month. Truly data-driven and creative at the same time.', name: 'D2C Brand', role: 'Founder' },
 ];
