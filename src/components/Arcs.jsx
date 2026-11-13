@@ -1,38 +1,37 @@
 import { motion } from 'framer-motion';
 
-/* Animated concentric "3" built from red stroke arcs — echoes the NEXT3 logo mark. */
-const radii = [62, 98, 134, 170];
-const CX = 230;
-const CY1 = 190;
-const CY2 = 550; // CY2 - CY1 = 2 * max radius so bowls meet at the waist
+/*
+  The exact "3" mark from the NEXT3 logo, split into its rings (public/ring1..5.png,
+  extracted from logo.webp). Rings reveal one after another, outer to inner.
+*/
+const BASE = import.meta.env.BASE_URL;
+const rings = ['ring5', 'ring4', 'ring3', 'ring2', 'ring1']; // outer -> inner
 
-const pt = (cx, cy, r, deg) => {
-  const a = (deg * Math.PI) / 180;
-  return [cx + r * Math.cos(a), cy + r * Math.sin(a)].map((n) => n.toFixed(2)).join(' ');
+const ringVariants = {
+  hidden: { clipPath: 'inset(0% 0% 100% 0%)', opacity: 0, scale: 0.92 },
+  show: (d) => ({
+    clipPath: 'inset(0% 0% 0% 0%)', opacity: 1, scale: 1,
+    transition: { duration: 1.2, delay: d, ease: [0.65, 0, 0.35, 1] },
+  }),
 };
 
-function threePath(r) {
-  // upper bowl: from left (200°) clockwise over the top to the bottom (90°)
-  const upper = `M ${pt(CX, CY1, r, 200)} A ${r} ${r} 0 1 1 ${pt(CX, CY1, r, 90)}`;
-  // lower bowl: from its top (270°) clockwise round to the left (160°)
-  const lower = `M ${pt(CX, CY2, r, 270)} A ${r} ${r} 0 1 1 ${pt(CX, CY2, r, 160)}`;
-  return upper + ' ' + lower;
-}
-
-export default function Arcs({ className = '', delay = 0, stroke = 20 }) {
+export default function Arcs({ className = '', delay = 0, dark = false, animateOnView = false }) {
+  // the wrapper (never clipped) drives the trigger; rings inherit the variant
+  const trigger = animateOnView
+    ? { initial: 'hidden', whileInView: 'show', viewport: { once: true, amount: 0.2 } }
+    : { initial: 'hidden', animate: 'show' };
   return (
-    <svg className={className} viewBox="0 0 440 760" fill="none" aria-hidden="true">
-      {radii.map((r, i) => (
-        <motion.path
+    <motion.div className={`mark3 ${dark ? 'mark3-dark' : ''} ${className}`} aria-hidden="true" {...trigger}>
+      {rings.map((r, i) => (
+        <motion.img
           key={r}
-          d={threePath(r)}
-          stroke="#e50914"
-          strokeWidth={stroke}
-          initial={{ pathLength: 0, opacity: 0 }}
-          animate={{ pathLength: 1, opacity: 1 }}
-          transition={{ duration: 2, delay: delay + (radii.length - i) * 0.15, ease: [0.65, 0, 0.35, 1] }}
+          src={`${BASE}${r}.png`}
+          alt=""
+          draggable="false"
+          variants={ringVariants}
+          custom={delay + i * 0.14}
         />
       ))}
-    </svg>
+    </motion.div>
   );
 }

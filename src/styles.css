@@ -34,7 +34,10 @@ a { color: inherit; text-decoration: none; }
   position: fixed; inset: 0; z-index: 200; background: var(--black);
   display: grid; place-items: center; align-content: center; gap: 24px;
 }
-.preloader-arcs { width: 140px; height: auto; }
+.mark3 { position: relative; aspect-ratio: 759 / 966; }
+.mark3 img { position: absolute; inset: 0; width: 100%; height: 100%; user-select: none; pointer-events: none; }
+.mark3-dark img { filter: brightness(0); }
+.preloader-arcs { width: 120px; }
 .preloader-text {
   font-family: var(--font-display); font-weight: 900; letter-spacing: 0.3em; font-size: 14px;
 }
@@ -165,7 +168,7 @@ a { color: inherit; text-decoration: none; }
   position: absolute; right: max(-40px, 4vw); top: 50%; translate: 0 -46%;
   width: clamp(280px, 34vw, 520px);
 }
-.hero-arcs svg { width: 100%; height: auto; filter: drop-shadow(0 0 40px rgba(229,9,20,.45)); }
+.hero-arcs .mark3 { width: 100%; filter: drop-shadow(0 0 40px rgba(229,9,20,.45)); }
 .hero-content { position: relative; z-index: 2; }
 .eyebrow, .kicker {
   display: inline-flex; align-items: center; gap: 14px; text-transform: uppercase; letter-spacing: .22em;
@@ -312,8 +315,8 @@ a { color: inherit; text-decoration: none; }
   display: grid; place-items: center;
 }
 .work-card:hover .work-bg { transform: scale(1.08); }
-.work-arcs { width: 46%; max-width: 220px; height: auto; opacity: .35; transition: opacity .5s, transform 1s; }
-.work-card:hover .work-arcs { opacity: .7; transform: rotate(-10deg); }
+.work-arcs { width: 40%; max-width: 200px; opacity: .4; transition: opacity .5s, transform 1s; }
+.work-card:hover .work-arcs { opacity: .8; transform: scale(1.1); }
 .bg-0 { background: radial-gradient(circle at 30% 20%, #3a0a0d, #0c0c0c 70%); }
 .bg-1 { background: linear-gradient(135deg, #1a1a1a, #2a0507 60%, #0a0a0a); }
 .bg-2 { background: radial-gradient(circle at 80% 80%, #4a0a0e, #111 65%); }
@@ -338,7 +341,6 @@ a { color: inherit; text-decoration: none; }
 /* ---------- CTA (red) ---------- */
 .cta { background: var(--red); padding: clamp(80px, 10vw, 130px) 0; position: relative; overflow: hidden; }
 .cta-arcs { position: absolute; right: -60px; top: 50%; translate: 0 -50%; width: 340px; opacity: .25; }
-.cta-arcs path { stroke: var(--black); }
 .cta-inner { position: relative; display: flex; justify-content: space-between; align-items: center; gap: 40px; flex-wrap: wrap; }
 .cta h2 { font-family: var(--font-display); font-weight: 900; font-size: clamp(34px, 5vw, 66px); line-height: 1.02; letter-spacing: -0.02em; }
 .outline { color: transparent; -webkit-text-stroke: 2px var(--white); }

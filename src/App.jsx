@@ -33,7 +33,7 @@ function Preloader({ done }) {
           exit={{ clipPath: 'inset(0 0 100% 0)' }}
           transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
         >
-          <Arcs className="preloader-arcs" stroke={22} />
+          <Arcs className="preloader-arcs" />
           <motion.div
             className="preloader-text"
             initial={{ opacity: 0, y: 20 }}
@@ -182,7 +182,7 @@ function Hero() {
   const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
   const yText = useTransform(scrollYProgress, [0, 1], [0, 200]);
   const yArcs = useTransform(scrollYProgress, [0, 1], [0, -120]);
-  const rot = useTransform(scrollYProgress, [0, 1], [0, 25]);
+  const rot = useTransform(scrollYProgress, [0, 1], [0, 6]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const [word, setWord] = useState(0);
   useEffect(() => {
@@ -216,7 +216,7 @@ function Hero() {
       </div>
       <div className="hero-glow" />
       <motion.div className="hero-arcs" style={{ y: yArcs, rotate: rot }}>
-        <Arcs delay={2.2} stroke={22} />
+        <Arcs delay={2.2} />
       </motion.div>
 
       <motion.div className="hero-content container" style={{ y: yText, opacity }}>
@@ -499,7 +499,7 @@ function Work() {
                 transition={{ duration: 1.1, delay: (i % 3) * 0.12, ease: [0.76, 0, 0.24, 1] }}
               />
               <div className={`work-bg bg-${i % 6}`}>
-                <Arcs className="work-arcs" stroke={14} />
+                <Arcs className="work-arcs" animateOnView delay={0.4} />
               </div>
               <div className="work-overlay">
                 <span className="work-tag">{w.tag}</span>
@@ -518,7 +518,7 @@ function Work() {
 function CTA() {
   return (
     <section className="cta">
-      <Arcs className="cta-arcs" stroke={18} />
+      <Arcs className="cta-arcs" dark animateOnView />
       <div className="container cta-inner">
         <motion.h2 variants={fadeUp} initial="hidden" whileInView="show" viewport={{ once: true }}>
           Ready to make your<br />next move <span className="outline">unforgettable?</span>
