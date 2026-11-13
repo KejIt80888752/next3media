@@ -33,15 +33,7 @@ function Preloader({ done }) {
           exit={{ clipPath: 'inset(0 0 100% 0)' }}
           transition={{ duration: 0.9, ease: [0.76, 0, 0.24, 1] }}
         >
-          <Arcs className="preloader-arcs" />
-          <motion.div
-            className="preloader-text"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-          >
-            NEXT<span>3</span> MEDIA
-          </motion.div>
+          <Arcs className="preloader-arcs" showNext />
         </motion.div>
       )}
     </AnimatePresence>
@@ -216,7 +208,7 @@ function Hero() {
       </div>
       <div className="hero-glow" />
       <motion.div className="hero-arcs" style={{ y: yArcs, rotate: rot }}>
-        <Arcs delay={2.2} showNext />
+        <Arcs delay={2.2} />
       </motion.div>
 
       <motion.div className="hero-content container" style={{ y: yText, opacity }}>
