@@ -2,7 +2,7 @@
 
 React + Vite + Framer Motion single-page site.
 
-- Edit business details (email, locations, socials, stats, testimonials) in `src/data.js`
+- Edit business details (email, locations, socials) in `src/data.js`
 - Replace the logo at `public/logo.webp`
 
 ```bash

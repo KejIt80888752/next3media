@@ -17,7 +17,6 @@ export const nav = [
   { id: 'services', label: 'Services' },
   { id: 'process', label: 'Process' },
   { id: 'work', label: 'Work' },
-  { id: 'testimonials', label: 'Clients' },
   { id: 'contact', label: 'Contact' },
 ];
 
@@ -39,13 +38,6 @@ export const services = [
   { icon: Newspaper, title: 'Media Coverage & Communications', text: 'Print, TV and online coverage with powerful communication strategies that get you noticed.' },
 ];
 
-export const stats = [
-  { value: 250, suffix: '+', label: 'Events Delivered' },
-  { value: 120, suffix: '+', label: 'Happy Brands' },
-  { value: 500, suffix: '+', label: 'Campaigns & Shoots' },
-  { value: 10, suffix: 'M+', label: 'Audience Reached' },
-];
-
 export const process = [
   { title: 'Discover', text: 'We listen, research your brand, audience and goals.' },
   { title: 'Strategize', text: 'A clear creative and media plan with timelines and budgets.' },
@@ -61,10 +53,4 @@ export const work = [
   { tag: 'Influencer', title: 'Festive Creator Campaign', size: 'normal' },
   { tag: 'Activation', title: 'Mall Brand Roadshow', size: 'wide' },
   { tag: 'PR', title: 'Startup Media Launch', size: 'normal' },
-];
-
-export const testimonials = [
-  { quote: 'NEXT3 Media handled our product launch end-to-end — PR, event and social. Flawless execution and outstanding media coverage.', name: 'Corporate Client', role: 'Marketing Head' },
-  { quote: 'Our wedding looked like a film. The team was calm, creative and on top of every detail. Highly recommended!', name: 'Wedding Client', role: 'Hyderabad' },
-  { quote: 'Their influencer campaign doubled our reach in a month. Truly data-driven and creative at the same time.', name: 'D2C Brand', role: 'Founder' },
 ];

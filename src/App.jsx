@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from 'react';
 import {
-  motion, AnimatePresence, useScroll, useSpring, useTransform, useInView, useMotionValue, animate,
+  motion, AnimatePresence, useScroll, useSpring, useTransform, useMotionValue,
 } from 'framer-motion';
 import {
   ArrowRight, ArrowUpRight, Menu, X, Mail, MapPin, Instagram, Facebook, Linkedin, Youtube,
-  Quote, Play, ChevronUp,
+  Play, ChevronUp,
 } from 'lucide-react';
 import Arcs from './components/Arcs.jsx';
 import {
-  contact, nav, pillars, services, stats, process, work, testimonials,
+  contact, nav, pillars, services, process, work,
 } from './data.js';
 
 const LOGO = `${import.meta.env.BASE_URL}logo.webp`;
@@ -447,34 +447,6 @@ function Services() {
   );
 }
 
-/* ---------- Stats ---------- */
-function Counter({ value, suffix }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true });
-  const [n, setN] = useState(0);
-  useEffect(() => {
-    if (!inView) return;
-    const c = animate(0, value, { duration: 2.2, ease: 'easeOut', onUpdate: (v) => setN(Math.round(v)) });
-    return () => c.stop();
-  }, [inView, value]);
-  return <span ref={ref}>{n}<em>{suffix}</em></span>;
-}
-
-function Stats() {
-  return (
-    <section className="stats">
-      <div className="container stats-grid">
-        {stats.map((s, i) => (
-          <motion.div key={s.label} className="stat" variants={fadeUp} custom={i} initial="hidden" whileInView="show" viewport={{ once: true }}>
-            <div className="stat-value"><Counter value={s.value} suffix={s.suffix} /></div>
-            <div className="stat-label">{s.label}</div>
-          </motion.div>
-        ))}
-      </div>
-    </section>
-  );
-}
-
 /* ---------- Process ---------- */
 function Process() {
   const ref = useRef(null);
@@ -542,49 +514,6 @@ function Work() {
   );
 }
 
-/* ---------- Testimonials ---------- */
-function Testimonials() {
-  const [i, setI] = useState(0);
-  useEffect(() => {
-    const t = setInterval(() => setI((v) => (v + 1) % testimonials.length), 5500);
-    return () => clearInterval(t);
-  }, []);
-  const t = testimonials[i];
-  return (
-    <section id="testimonials" className="section testimonials">
-      <div className="container">
-        <Heading kicker="Client Love" center title={<>What our clients <span className="red">say</span></>} />
-        <div className="testi-box">
-          <Quote className="testi-quote" size={64} />
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -30 }}
-              transition={{ duration: 0.6, ease }}
-            >
-              <p className="testi-text">“{t.quote}”</p>
-              <div className="testi-author">
-                <div className="testi-avatar">{t.name.charAt(0)}</div>
-                <div>
-                  <strong>{t.name}</strong>
-                  <span>{t.role}</span>
-                </div>
-              </div>
-            </motion.div>
-          </AnimatePresence>
-          <div className="testi-dots">
-            {testimonials.map((_, k) => (
-              <button key={k} onClick={() => setI(k)} className={k === i ? 'active' : ''} aria-label={`Testimonial ${k + 1}`} />
-            ))}
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 /* ---------- CTA band ---------- */
 function CTA() {
   return (
@@ -638,7 +567,7 @@ function Contact() {
                 </>
               );
               return (
-                <motion.div key={c.label} variants={fadeUp} custom={i + 3} initial="hidden" whileInView="show" viewport={{ once: true }}>
+                <motion.div key={c.value} variants={fadeUp} custom={i + 3} initial="hidden" whileInView="show" viewport={{ once: true }}>
                   {c.href ? <a className="ci" href={c.href}>{Inner}</a> : <div className="ci">{Inner}</div>}
                 </motion.div>
               );
@@ -786,11 +715,9 @@ export default function App() {
         <Marquee items={services.map((s) => s.title)} />
         <About />
         <Services />
-        <Stats />
         <Process />
         <Marquee items={['Innovate', 'Automate', 'Elevate', 'NEXT3 Media']} reverse variant="dark" />
         <Work />
-        <Testimonials />
         <CTA />
         <Contact />
       </main>
