@@ -7,7 +7,7 @@ export const contact = {
   email: 'info@next3media.com',
   locations: ['Bengaluru', 'Hyderabad'],
   // Social profiles — leave '' until the account exists; icons appear automatically once filled.
-  instagram: '',
+  instagram: 'https://www.instagram.com/next3media/',
   facebook: '',
   linkedin: '',
   youtube: '',

@@ -540,6 +540,7 @@ function Contact() {
   };
   const info = [
     { icon: Mail, label: 'Email Us', value: contact.email, href: `mailto:${contact.email}` },
+    ...(contact.instagram ? [{ icon: Instagram, label: 'Follow Us', value: '@next3media', href: contact.instagram, external: true }] : []),
     ...contact.locations.map((city) => ({ icon: MapPin, label: 'Office', value: `${city}, India` })),
   ];
   return (
@@ -561,7 +562,7 @@ function Contact() {
               );
               return (
                 <motion.div key={c.value} variants={fadeUp} custom={i + 3} initial="hidden" whileInView="show" viewport={{ once: true }}>
-                  {c.href ? <a className="ci" href={c.href}>{Inner}</a> : <div className="ci">{Inner}</div>}
+                  {c.href ? <a className="ci" href={c.href} {...(c.external ? { target: '_blank', rel: 'noreferrer' } : {})}>{Inner}</a> : <div className="ci">{Inner}</div>}
                 </motion.div>
               );
             })}

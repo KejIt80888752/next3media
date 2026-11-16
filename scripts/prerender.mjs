@@ -36,6 +36,7 @@ const graph = {
       logo: `${SITE}logo.webp`,
       image: `${SITE}og-image.jpg`,
       email: contact.email,
+      sameAs: [contact.instagram, contact.facebook, contact.linkedin, contact.youtube].filter(Boolean),
       areaServed: cities.map((c) => ({ '@type': 'City', name: c.name })),
       address: cities.map((c) => ({
         '@type': 'PostalAddress', addressLocality: c.name, addressRegion: c.state, addressCountry: 'IN',
