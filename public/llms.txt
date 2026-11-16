@@ -25,8 +25,8 @@ NEXT3 Media plans, produces and promotes brand stories end-to-end with one integ
 - Pricing is quoted per project based on scope, scale, location and deliverables.
 
 ## Links
-- Website: https://kejit80888752.github.io/next3media/
-- Services: https://kejit80888752.github.io/next3media/#services
-- Locations: https://kejit80888752.github.io/next3media/#locations
-- FAQ: https://kejit80888752.github.io/next3media/#faq
-- Contact: https://kejit80888752.github.io/next3media/#contact
+- Website: https://next3media.com/
+- Services: https://next3media.com/#services
+- Locations: https://next3media.com/#locations
+- FAQ: https://next3media.com/#faq
+- Contact: https://next3media.com/#contact

@@ -6,7 +6,7 @@ import { pathToFileURL, fileURLToPath } from 'node:url';
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const dist = path.join(root, 'dist');
 const ssrDir = path.join(root, 'dist-ssr');
-const SITE = 'https://kejit80888752.github.io/next3media/';
+const SITE = 'https://next3media.com/';
 
 const { render, faqs, services, cities, contact } = await import(
   pathToFileURL(path.join(ssrDir, 'entry-server.js')).href
